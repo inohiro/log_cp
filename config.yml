@@ -1,4 +1,8 @@
 ---
-program_dir : "C:\Program Files\FastCopy"
-program_log : "C:\Program Files\FastCopy\log"
-log_dir_name: "C:\logs"
+program_dir : "/Users/inohiro/github/log_cp"
+program_log : "/Users/inohiro/github/log_cp/logs\src"
+log_dir_name: "/Users/inohiro/github/log_cp/logs\dist"
+
+// program_dir : "C:\Program Files\FastCopy"
+// program_log : "C:\Program Files\FastCopy\log"
+// log_dir_name: "C:\logs"

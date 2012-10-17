@@ -5,19 +5,19 @@ require 'pp'
 describe 'log_manager' do
 
   before :all do
-    @config = ConfigSet.new( CONFIG_PATH )
+    @config = LogCp::ConfigSet.new( CONFIG_PATH )
   end
 
   context 'create instance' do
     it 'successfully' do
-      log_manager = LogManager.new( @config )
+      log_manager = LogCp::LogManager.new( @config )
       log_manager.should_not eq nil
     end
   end
 
   context 'get_created_month' do
     before :all do
-      @manager = LogManager.new( @config )
+      @manager = LogCp::LogManager.new( @config )
     end
 
     it 'can get created_month' do
@@ -43,7 +43,7 @@ describe 'log_manager' do
 
   context 'get_current_month' do
     before :all do
-      @manager = LogManager.new( @config )
+      @manager = LogCp::LogManager.new( @config )
     end
 
     it 'result size must be 6' do
@@ -53,11 +53,11 @@ describe 'log_manager' do
 
   context 'create_dir' do
     before :all do
-      @manager  = LogManager.new( @config )
+      @manager  = LogCp::LogManager.new( @config )
     end
 
     it 'can create' do
-      @manager = LogManager.new( @config )
+      @manager = LogCp::LogManager.new( @config )
       ( File.exist? @config.program_log ).should eq false
       @manager.send( :create_dir,  @config.program_log )
       ( File.exist? @config.program_log ).should eq true
