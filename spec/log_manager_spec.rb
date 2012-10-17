@@ -15,6 +15,18 @@ describe 'log_manager' do
     end
   end
 
+  context 'get_current_month' do
+    before :all do
+      @manager = LogCp::LogManager.new( @config )
+    end
+
+    it 'get correct date' do
+      now = Time.now
+      str = now.month.to_s.length == 1 ? "#{now.year}0#{now.month}" : "#{now.year}#{now.month}"
+      @manager.send( :get_current_month ).should eq str
+    end
+  end
+
   context 'get_created_month' do
     before :all do
       @manager = LogCp::LogManager.new( @config )

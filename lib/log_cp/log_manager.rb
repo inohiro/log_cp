@@ -41,14 +41,14 @@ module LogCp
     def get_current_month
       now = Time.now
       if now.month.to_s.length == 1
-        pp "#{now.year}0#{now.month}"
+        "#{now.year}0#{now.month}"
       else
-        pp "#{now.year}#{now.month}"
+        "#{now.year}#{now.month}"
       end
     end
 
     def get_created_month( file )
-      if m = file.match( /\d\d\d\d\d\d/)
+      if m = file.match( /\d\d\d\d\d\d/ )
         m[0]
       else
         nil
