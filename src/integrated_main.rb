@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 
-require 'fileutils'
 require 'yaml'
+require 'logger'
+require 'fileutils'
 
 ERROR_LOG = './log_cp.log'
 CONFIG_FILE = './config.yml'
@@ -90,7 +91,7 @@ EOS
 end
 
 def main( argv )
-  FileUtils.touch LOG_FILE unless File.exists? ERROR_LOG
+  FileUtils.touch ERROR_LOG unless File.exists? ERROR_LOG
   logger = Logger.new( ERROR_LOG )
   logger.level = Logger::ERROR
 
