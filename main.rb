@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 $:.unshift File.join( File.dirname( __FILE__ ), 'lib' )
 require 'log_cp'
+require 'fileutils'
+
+LOG_FILE = './log_cp.log'
 
 def print_help
   puts <<EOS
@@ -9,8 +12,11 @@ EOS
 end
 
 def main( argv )
-  logger = Logger.new( './log_cp.log' )
+  FileUtils.touch LOG_FILE unless File.exists? LOG_FILE
+  logger = Logger.new( LOG_FILE )
   logger.level = Logger::ERROR
+  
+  logger.error( 'hogehoge' )
 
   argv.length >= 1 ? config_path = argv[0] : config_path = './config.yml'
   config_set = LogCp::ConfigSet.new( config_path, logger )
@@ -19,19 +25,23 @@ def main( argv )
   return if config_set == nil
   if config_set == nil
     logger.error( '設定ファイルが正しく読み込めませんでした' )
+    puts 1
     return
   end
 
   # プログラムフォルダが存在しなければ終了
   unless File.exist? config_set.program_dir
     logger.error( 'プログラムフォルダが存在しません' )
+    puts 2
     return
   end
-
+  
+  FileUtils.mkdir config_set.program_log unless File.exists? config_set.program_log
+  
   log_manager = LogCp::LogManager.new( config_set, logger )
   log_manager.move_logs
   log_manager.remove_old_logs
-
+  
 end
 
 main( ARGV )
