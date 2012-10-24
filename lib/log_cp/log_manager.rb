@@ -7,7 +7,7 @@ module LogCp
 
   class LogManager
 
-    def initialize( config, logger = Logger.new( './log_cp.log' ) )
+    def initialize( config, logger = Logger.new( ERROR_LOG ) )
       @config = config
       @logger = logger
       @current_dir = config.log_dir_name
@@ -29,13 +29,7 @@ module LogCp
       Dir.glob( @config.log_dir_name + '/*'  ) do |dir|
         created_month = get_created_month( dir )
         result = too_old?( created_month, limit_month )
-
-        pp dir
-        pp result
-        
-        if result
-          FileUtils.rm_r( File.expand_path( dir ) )
-        end
+        FileUtils.rm_r( File.expand_path( dir ) ) if result
       end
     end
 
@@ -48,27 +42,17 @@ module LogCp
 
     def get_current_month
       now = Time.now
-      if now.month.to_s.length == 1
-        "#{now.year}0#{now.month}"
-      else
-        "#{now.year}#{now.month}"
-      end
+      now.month.to_s.length == 1 ? "#{now.year}0#{now.month}" : "#{now.year}#{now.month}"
     end
 
     def get_created_month( file )
       m = file.match( /\d\d\d\d\d\d/ )
-      if m
-        m[0]
-      else
-        nil
-      end
+      m != nil ? m[0] : nil
     end
 
     def create_dir( dir = @config.program_log )
       # ログフォルダが存在しなければ作成する
-      unless File.exists? dir
-        FileUtils.mkdir_p( dir )
-      end
+      FileUtils.mkdir_p dir unless File.exists? dir
     end
 
   end

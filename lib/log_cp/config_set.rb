@@ -10,7 +10,7 @@ module LogCp
     attr_reader :program_log
     attr_reader :log_dir_name
 
-    def initialize( config_path, logger = Logger.new( './log_cp.log' ) )
+    def initialize( config_path, logger = Logger.new( ERROR_LOG ) )
       @logger = logger
 
       begin
