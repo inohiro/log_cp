@@ -24,7 +24,7 @@ module LogCp
         @program_log = config['program_log'] || "C:\Program Files\FastCopy\log"
         @log_dir_name = config['log_dir_name'] || "C:\logs"
       rescue => exp
-        @logger.fatal( "Cought unecpected exception" )
+        @logger.fatal( "予期せぬエラー（設定ファイルが読み込めませんでした）" )
         @logger.fatal( exp )
         nil
       end
@@ -46,8 +46,8 @@ module LogCp
         created_month = get_created_month( f )
         dir_name = "#{@config.log_dir_name}/#{created_month}_FastCopy_Log"
         create_dir( dir_name )
-        FileUtils.mv( f, dir_name, { :force => true } ) # 上書き移動
-        #        FileUtils.cp( f, dir_name ) # コピー
+        #        FileUtils.mv( f, dir_name, { :force => true } ) # 上書き移動
+        FileUtils.cp( f, dir_name ) # コピー
       end
     end
 
@@ -99,8 +99,8 @@ def main( argv )
   config_set = LogCp::ConfigSet.new( config_path, logger )
 
   # 設定ファイルが正しく読めなかったら終了
-  return if config_set == nil
-  if config_set == nil
+  return unless config_set
+  unless config_set
     logger.error( '設定ファイルが正しく読み込めませんでした' )
     puts 1
     return
