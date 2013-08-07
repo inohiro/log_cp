@@ -22,3 +22,5 @@ Gemfile.lock
 *~
 \#*
 .DS_Store
+
+*.yml
