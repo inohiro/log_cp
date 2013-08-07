@@ -21,7 +21,7 @@ module LogCp
         dir_name = "#{@config.log_dir_name}/#{created_month}_FastCopy_Log"
         create_dir( dir_name )
         FileUtils.mv( f, dir_name, { :force => true } ) # 上書き移動
-#        FileUtils.cp( f, dir_name ) # 上書き移動
+#        FileUtils.cp( f, dir_name ) # コピー
       end
     end
 
