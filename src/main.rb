@@ -6,9 +6,7 @@ require 'fileutils'
 LOG_FILE = './log_cp.log'
 
 def print_help
-  puts <<EOS
-usage: ruby log_cp.rb config_file_path
-EOS
+  puts 'usage: ruby log_cp.rb config_file_path'
 end
 
 def main( argv )
